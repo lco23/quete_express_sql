@@ -93,10 +93,10 @@ app.get('/', (req, res) => {
     });
   });
   
-  app.put('/:id', (req, res) => {
-    const idDesserts = req.params.id;
+  app.put('/deja_realisee/:name', (req, res) => {
+    const idDesserts = req.params.name;
     const formData = req.body; 
-    connection.query('UPDATE desserts SET ? `deja_realisee`=not `deja_realisee`', [formData, idDesserts], err => {
+    connection.query('UPDATE desserts SET ? `deja_realisee`=not `deja_realisee` where name=?', [formData, idDesserts], err => {
       if (err) {
         console.log(err);
         res.status(500).send("Erreur lors de la modification d'une recette");
@@ -118,7 +118,7 @@ app.get('/', (req, res) => {
     });
   });
 
-  app.delete('/:id', (req, res) => {
+  app.delete('/delete/false', (req, res) => {
     const idDesserts = req.params.id;
     connection.query('DELETE FROM desserts WHERE `deja_realisee`=false', [idDesserts], err => {
       if (err) {
